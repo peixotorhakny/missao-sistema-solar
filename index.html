@@ -2030,7 +2030,7 @@ function renderConteudo(){
           <div class="planet-avatar">${planetIconSVG(p.id)}</div>
           <div>
             <h2>${p.nome}</h2>
-            <div class="subtitle">📖 Diário de Bordo</div>
+            <div class="subtitle">📖 Diário de Bordo · <span class="points-tag">⭐ ${state.totalPontos || 0} pts</span></div>
           </div>
         </div>
         <div class="discovery-dots">
@@ -2075,8 +2075,10 @@ function renderConteudo(){
         const i = parseInt(btn.dataset.i, 10);
         if (i === perguntaAtual.correta) {
           playCorrect();
-          mascotSay(MASCOTE_ACERTO[Math.floor(Math.random()*MASCOTE_ACERTO.length)], 2800);
           checkState.erros = 0;
+          state.totalPontos = (state.totalPontos || 0) + 20;
+          salvarEstado();
+          mascotSay(`${MASCOTE_ACERTO[Math.floor(Math.random()*MASCOTE_ACERTO.length)]} +20 pts`, 2800);
           if (checkState.qIndice >= passo.perguntas.length - 1) {
             checkState.ok = true;
           } else {
