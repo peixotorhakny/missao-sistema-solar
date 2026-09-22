@@ -1,0 +1,9 @@
+{
+  "name": "missao-sistema-solar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jogo educativo de Astronomia - Missao Sistema Solar",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4"
+  }
+}
