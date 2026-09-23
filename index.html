@@ -658,6 +658,18 @@ const PLANETS = [
           { p: 'Por que Io tem tons de amarelo, laranja e vermelho?', opts: ['Por causa de oceanos coloridos','Por causa de enxofre e compostos de enxofre em sua superfície','Por refletir a cor de Júpiter','Por causa de gelo colorido'], correta: 1 },
           { p: 'A aparência de Io é frequentemente comparada a:', opts: ['Uma bola de neve','Uma pizza','Um espelho','Um diamante'], correta: 1 },
           { p: 'A cor da superfície de Io está diretamente relacionada a qual característica já estudada desse mundo?', opts: ['Sua distância do Sol','Sua intensa atividade vulcânica, que traz enxofre à superfície','Seu campo magnético','Sua atmosfera densa'], correta: 1 }
+        ] },
+      { titulo: 'Sem atmosfera protetora', texto: 'Io tem apenas uma atmosfera finíssima de dióxido de enxofre, constantemente reabastecida pelos próprios vulcões e destruída pela radiação de Júpiter quase tão rápido quanto se forma.',
+        perguntas: [
+          { p: 'Como é a atmosfera de Io?', opts: ['Densa como a de Vênus','Finíssima, de dióxido de enxofre, reabastecida pelos vulcões','Inexistente por completo','Igual à da Terra'], correta: 1 },
+          { p: 'O que mantém essa atmosfera finíssima existindo, apesar de ser destruída constantemente?', opts: ['A luz solar a recria','Os próprios vulcões de Io a reabastecem continuamente','Ela nunca é destruída','Vem de Júpiter'], correta: 1 },
+          { p: 'O fato de a atmosfera de Io ser destruída quase tão rápido quanto se forma mostra que ela está em:', opts: ['Equilíbrio perfeito e estático','Um ciclo constante de criação e destruição','Processo de desaparecimento definitivo','Expansão contínua'], correta: 1 }
+        ] },
+      { titulo: 'Presa na fúria de Júpiter', texto: 'Io orbita dentro do cinturão de radiação de Júpiter, recebendo uma quantidade de radiação que seria letal para humanos sem proteção pesada.',
+        perguntas: [
+          { p: 'Por que Io é um ambiente extremamente hostil para uma futura visita humana?', opts: ['Por causa do frio extremo apenas','Por orbitar dentro do intenso cinturão de radiação de Júpiter','Por não ter gravidade','Por estar coberta de água'], correta: 1 },
+          { p: 'A radiação que Io recebe vem principalmente de:', opts: ['Do Sol diretamente','Do campo magnético e cinturão de radiação de Júpiter','De seus próprios vulcões','De Saturno'], correta: 1 },
+          { p: 'Estar tão perto de Júpiter traz para Io tanto o calor do aquecimento de maré quanto:', opts: ['Um clima ameno','Níveis extremos de radiação','Proteção total contra impactos','Uma atmosfera espessa e segura'], correta: 1 }
         ] }
     ],
     curiosidade: 'Io é a única lua do Sistema Solar conhecida por ter lava tão quente que alguns de seus vulcões lembram os primeiros bilhões de anos da própria Terra.',
@@ -667,14 +679,14 @@ const PLANETS = [
           exp: 'Io tem centenas de vulcões ativos, sendo o corpo mais vulcanicamente ativo do Sistema Solar.' },
         { p: 'O que dá a Io suas cores amarelas, laranjas e vermelhas?', opts: ['Água congelada','Enxofre','Ferro líquido','Nuvens de metano'], correta: 1,
           exp: 'Compostos de enxofre espalhados por vulcões dão a Io sua aparência colorida.' },
-        { p: 'Io é uma lua de qual planeta?', opts: ['Saturno','Júpiter','Marte','Netuno'], correta: 1,
-          exp: 'Io é uma das quatro luas galileanas de Júpiter.' }
+        { p: 'A atmosfera de Io é:', opts: ['Densa e estável','Finíssima e constantemente reabastecida pelos vulcões','Inexistente','Igual à de Titã'], correta: 1,
+          exp: 'A fina atmosfera de dióxido de enxofre de Io é recriada continuamente pelos próprios vulcões.' }
       ],
       desafio: [
         { p: 'O calor interno de Io vem principalmente de:', opts: ['Radiação solar','Aquecimento de maré causado pela gravidade de Júpiter e outras luas','Reações nucleares','Colisões recentes'], correta: 1,
           exp: 'A gravidade de Júpiter e das luas vizinhas espreme Io continuamente, gerando calor por atrito interno.' },
-        { p: 'Por que Io tem tanta atividade vulcânica mesmo estando longe do Sol?', opts: ['Porque está perto do Sol na verdade','Porque forças gravitacionais a espremem continuamente, gerando calor interno','Porque tem uma atmosfera que retém calor solar','Não há explicação'], correta: 1,
-          exp: 'O calor de Io não vem do Sol, e sim do aquecimento de maré gerado pela gravidade de Júpiter.' },
+        { p: 'Por que Io é considerada um ambiente extremamente perigoso para visitas humanas?', opts: ['Apenas pelo frio','Pela radiação intensa do cinturão de Júpiter somada à atividade vulcânica','Por não ter gravidade','Por estar sempre escura'], correta: 1,
+          exp: 'Io combina radiação intensa e vulcanismo extremo, tornando-a um dos ambientes mais hostis do Sistema Solar.' },
         { p: 'O que a intensa atividade vulcânica de Io sugere sobre seu interior?', opts: ['Está completamente frio e sólido','Ainda é geologicamente muito ativo por dentro','Não tem interior, é oca','É feito só de gás'], correta: 1,
           exp: 'Vulcões ativos são evidência direta de que o interior de um corpo celeste ainda gera e libera calor.' }
       ]
@@ -700,23 +712,35 @@ const PLANETS = [
           { p: 'Como é caracterizada a superfície de gelo de Europa?', opts: ['Cheia de crateras profundas','Uma das mais lisas do Sistema Solar, com longas rachaduras','Coberta de vulcões ativos','Completamente escura'], correta: 1 },
           { p: 'As rachaduras avermelhadas na superfície de Europa são um indício de que:', opts: ['A superfície é geologicamente ativa, possivelmente ligada ao oceano abaixo','Europa está pegando fogo','São apenas ilusões de ótica','Europa não tem superfície sólida'], correta: 0 },
           { p: 'A pouca quantidade de crateras de impacto em Europa sugere que sua superfície:', opts: ['É extremamente antiga e nunca mudou','É relativamente jovem e se renova com o tempo','Não existe fisicamente','Está sempre coberta de nuvens'], correta: 1 }
+        ] },
+      { titulo: 'Uma crosta de gelo espessa', texto: 'Estima-se que a camada de gelo de Europa tenha entre 15 e 25 km de espessura, isolando o oceano líquido abaixo do vácuo gelado do espaço.',
+        perguntas: [
+          { p: 'Qual é a função da espessa crosta de gelo de Europa?', opts: ['Nenhuma, é só decoração','Isolar o oceano líquido abaixo do vácuo do espaço','Aquecer a superfície','Impedir a rotação da lua'], correta: 1 },
+          { p: 'A espessura estimada do gelo de Europa é de aproximadamente:', opts: ['Poucos centímetros','Entre 15 e 25 km','Milhares de km','Não há gelo nenhum'], correta: 1 },
+          { p: 'Uma crosta de gelo tão espessa representa qual desafio para futuras missões que queiram estudar o oceano?', opts: ['Nenhum desafio','Seria preciso perfurar ou encontrar outra forma de acessar o oceano abaixo','O oceano é fácil de alcançar andando','Não há desafio, o gelo é fino'], correta: 0 }
+        ] },
+      { titulo: 'Alvo de futuras missões', texto: 'A missão Europa Clipper da NASA foi enviada para estudar essa lua de perto e avaliar seu potencial de habitabilidade.',
+        perguntas: [
+          { p: 'O que é a missão Europa Clipper?', opts: ['Um telescópio na Terra','Uma missão da NASA para estudar Europa de perto','Um satélite de comunicação','Uma sonda que já pousou em Europa'], correta: 1 },
+          { p: 'Qual é um dos principais objetivos de missões voltadas a Europa?', opts: ['Medir a temperatura do Sol','Avaliar o potencial de habitabilidade da lua','Fotografar Marte','Estudar os anéis de Saturno'], correta: 1 },
+          { p: 'O interesse científico em enviar missões a Europa está diretamente ligado a qual característica já estudada dessa lua?', opts: ['Seus vulcões','Seu oceano subterrâneo de água líquida','Sua atmosfera espessa','Seus anéis'], correta: 1 }
         ] }
     ],
-    curiosidade: 'Missões futuras planejam pousar sondas em Europa para analisar diretamente o gelo em busca de sinais químicos de vida vindos do oceano interno.',
+    curiosidade: 'A missão Europa Clipper, da NASA, não vai pousar na lua — ela vai orbitar Europa repetidamente, sobrevoando de perto para escanear o gelo e o oceano abaixo sem precisar perfurar nada.',
     quiz: {
       facil: [
         { p: 'O que existe sob a superfície congelada de Europa?', opts: ['Lava','Um oceano de água líquida','Vácuo total','Gás venenoso'], correta: 1,
           exp: 'Europa esconde um oceano de água líquida sob sua espessa crosta de gelo.' },
         { p: 'Europa é considerada interessante para a busca de:', opts: ['Petróleo','Vida extraterrestre','Ouro','Sinal de rádio antigo'], correta: 1,
           exp: 'A combinação de água líquida e calor interno faz de Europa um alvo prioritário na astrobiologia.' },
-        { p: 'A superfície de Europa é caracterizada por ser:', opts: ['Cheia de vulcões ativos','Lisa, com rachaduras','Coberta de crateras profundas','Feita de metano líquido'], correta: 1,
-          exp: 'Europa tem uma das superfícies mais lisas do Sistema Solar, cortada por rachaduras.' }
+        { p: 'Aproximadamente qual a espessura estimada do gelo de Europa?', opts: ['Poucos centímetros','15 a 25 km','Mais de 1.000 km','Não tem gelo'], correta: 1,
+          exp: 'A crosta de gelo de Europa é estimada entre 15 e 25 km de espessura.' }
       ],
       desafio: [
         { p: 'O que mantém líquido o oceano interno de Europa, mesmo tão longe do Sol?', opts: ['Luz solar direta','Aquecimento de maré pela gravidade de Júpiter','Uma atmosfera espessa','Vulcões na superfície de gelo'], correta: 1,
           exp: 'Assim como em Io, a gravidade de Júpiter gera calor interno suficiente para manter água líquida.' },
-        { p: 'As rachaduras avermelhadas na superfície de Europa sugerem:', opts: ['Que a lua é totalmente inerte','Alguma atividade geológica ligada ao oceano interno','Que Europa está pegando fogo','Que não há gelo em Europa'], correta: 1,
-          exp: 'As rachaduras indicam movimento na crosta de gelo, possivelmente conectado ao oceano abaixo.' },
+        { p: 'Por que enviar uma sonda para orbitar Europa (como a Europa Clipper) em vez de pousar direto?', opts: ['Pousar seria mais fácil e barato','A espessa crosta de gelo dificulta o acesso direto ao oceano, então orbitar permite escanear à distância','Europa não tem gravidade','Não há motivo, é só escolha aleatória'], correta: 1,
+          exp: 'A grossa camada de gelo torna o pouso e o acesso direto ao oceano muito mais complexos que orbitar e escanear.' },
         { p: 'Por que a combinação "água líquida + calor + química" torna Europa relevante na astrobiologia?', opts: ['Porque são os ingredientes básicos considerados necessários para a vida como conhecemos','Porque isso prova que há vida lá','Porque isso não tem relação com vida','Porque só a Terra tem essa combinação'], correta: 0,
           exp: 'Esses três ingredientes juntos são considerados essenciais para a vida como a conhecemos, sem provar sua existência.' }
       ]
@@ -742,6 +766,18 @@ const PLANETS = [
           { p: 'A superfície de Ganimedes é composta principalmente por:', opts: ['Apenas rocha vulcânica','Uma mistura de gelo e rocha','Metano líquido','Enxofre puro'], correta: 1 },
           { p: 'Que tipos de regiões distintas são observados na superfície de Ganimedes?', opts: ['Apenas oceanos','Regiões antigas cheias de crateras e regiões mais jovens com sulcos','Só desertos de areia','Nenhuma variação, é uniforme'], correta: 1 },
           { p: 'A existência de regiões "mais jovens" com sulcos em Ganimedes sugere que, no passado, esse satélite teve:', opts: ['Nenhuma atividade geológica','Algum tipo de atividade geológica que remodelou sua superfície','Vida inteligente','Apenas impactos de meteoros'], correta: 1 }
+        ] },
+      { titulo: 'Auroras próprias', texto: 'Graças ao seu campo magnético, Ganimedes tem auroras polares, como as da Terra — mas causadas pela interação com o imenso campo magnético de Júpiter.',
+        perguntas: [
+          { p: 'O que permite que Ganimedes tenha auroras polares?', opts: ['Sua atmosfera densa','Seu próprio campo magnético interagindo com o de Júpiter','A luz do Sol refletida','Seus vulcões'], correta: 1 },
+          { p: 'As auroras de Ganimedes são parecidas com um fenômeno conhecido em qual outro planeta?', opts: ['Marte','A Terra','Mercúrio','Vênus'], correta: 1 },
+          { p: 'A existência de auroras em Ganimedes é uma consequência direta de qual característica única já estudada dessa lua?', opts: ['Seu tamanho gigante','Seu campo magnético próprio','Sua distância do Sol','Sua cor'], correta: 1 }
+        ] },
+      { titulo: 'Um oceano também escondido', texto: 'Cientistas acreditam que Ganimedes também abriga um oceano salgado sob sua superfície gelada, possivelmente maior que o de Europa.',
+        perguntas: [
+          { p: 'Além de Europa, que outra lua de Júpiter pode ter um oceano subterrâneo?', opts: ['Io','Ganimedes','Nenhuma outra','Calisto apenas'], correta: 1 },
+          { p: 'Como o possível oceano de Ganimedes se compara ao de Europa, segundo estimativas?', opts: ['É menor','Pode ser maior','É idêntico','Não existe comparação possível'], correta: 1 },
+          { p: 'A possível existência de água líquida em mais de uma lua de Júpiter sugere que:', opts: ['Oceanos subterrâneos podem ser mais comuns do que se pensava em luas geladas','Só Europa pode ter água no Sistema Solar','É impossível ter mais de um oceano por planeta','Júpiter está cheio de água na superfície'], correta: 0 }
         ] }
     ],
     curiosidade: 'Se Ganimedes orbitasse o Sol em vez de Júpiter, provavelmente seria classificada como um planeta — ela é maior que Mercúrio.',
@@ -751,14 +787,14 @@ const PLANETS = [
           exp: 'Ganimedes é, oficialmente, a maior lua de todo o Sistema Solar.' },
         { p: 'Ganimedes é maior que qual planeta?', opts: ['Júpiter','Mercúrio','Saturno','Netuno'], correta: 1,
           exp: 'Ganimedes supera Mercúrio em diâmetro, embora tenha menos massa.' },
-        { p: 'O que torna Ganimedes única entre as luas?', opts: ['Não ter gravidade','Ter campo magnético próprio','Ser feita de gás','Não ter superfície sólida'], correta: 1,
-          exp: 'Ganimedes é a única lua conhecida com campo magnético próprio.' }
+        { p: 'O que Ganimedes tem em comum com a Terra, graças ao seu campo magnético?', opts: ['Oceanos visíveis na superfície','Auroras polares','Vulcões ativos','Uma lua própria'], correta: 1,
+          exp: 'O campo magnético de Ganimedes gera auroras polares, como as da Terra.' }
       ],
       desafio: [
         { p: 'O campo magnético de Ganimedes é gerado por:', opts: ['Sua atmosfera','Um núcleo de ferro derretido','A luz do Sol','O campo magnético de Júpiter refletido'], correta: 1,
           exp: 'Um núcleo metálico ainda derretido é a fonte do campo magnético de Ganimedes.' },
-        { p: 'A superfície de Ganimedes combina regiões antigas cheias de crateras com regiões mais jovens com sulcos. Isso sugere que, no passado, o satélite teve:', opts: ['Nenhuma atividade geológica','Algum tipo de atividade geológica que remodelou parte da superfície','Vida inteligente','Apenas impactos de meteoros recentes'], correta: 1,
-          exp: 'Regiões mais jovens e com sulcos indicam remodelação geológica ao longo da história de Ganimedes.' },
+        { p: 'O que sugere a possível existência de um oceano subterrâneo em Ganimedes, além de Europa?', opts: ['Que oceanos escondidos podem ser um fenômeno comum entre luas geladas','Que só Europa pode ter água líquida','Que Ganimedes é quente na superfície','Nada relevante'], correta: 0,
+          exp: 'A possível presença de água em mais de uma lua sugere que oceanos subterrâneos podem não ser tão raros.' },
         { p: 'O fato de uma lua ser maior que um planeta mostra que a classificação "planeta" ou "lua" depende de:', opts: ['Apenas do tamanho do corpo','Também da órbita (planeta orbita o Sol, lua orbita um planeta), não só do tamanho','Nada além do tamanho','Da cor do corpo celeste'], correta: 1,
           exp: 'A classificação de planeta e lua depende do que o corpo orbita, não apenas do seu tamanho.' }
       ]
@@ -784,6 +820,18 @@ const PLANETS = [
           { p: 'Por que Calisto sofre bem menos aquecimento de maré que Io?', opts: ['Por ser maior que Io','Por orbitar bem mais distante de Júpiter que Io','Por não ter gravidade','Por ser feita de material diferente'], correta: 1 },
           { p: 'O resultado de sofrer pouco aquecimento de maré é que Calisto é geologicamente:', opts: ['Extremamente ativa, como Io','"Morta", sem vulcões ou atividade interna significativa','Coberta de lava','Impossível de existir'], correta: 1 },
           { p: 'Comparando Io e Calisto, o que essa diferença revela sobre a distância de uma lua ao planeta que ela orbita?', opts: ['A distância não afeta nada','Quanto mais perto do planeta, maior tende a ser o aquecimento de maré e a atividade geológica','Luas mais distantes são sempre maiores','Não há relação nenhuma'], correta: 1 }
+        ] },
+      { titulo: 'Fora do cinturão de radiação intenso', texto: 'Por orbitar mais distante, Calisto recebe muito menos radiação de Júpiter que Io, Europa e Ganimedes, tornando-a uma candidata mais segura para uma futura base espacial.',
+        perguntas: [
+          { p: 'Por que Calisto recebe menos radiação de Júpiter que as outras luas galileanas?', opts: ['Por ter uma atmosfera protetora espessa','Por orbitar mais distante de Júpiter, fora do cinturão de radiação mais intenso','Por ser menor','Por não ter gravidade'], correta: 1 },
+          { p: 'Essa menor exposição à radiação torna Calisto uma candidata interessante para:', opts: ['Nada em especial','Uma futura base espacial humana','Um novo Sol','Substituir a Lua da Terra'], correta: 1 },
+          { p: 'Comparando as quatro luas galileanas, qual delas tende a ser a mais segura em termos de radiação?', opts: ['Io','Europa','Ganimedes','Calisto'], correta: 3 }
+        ] },
+      { titulo: 'Também pode ter água', texto: 'Apesar de sua aparência gelada e inerte, dados sugerem que Calisto também pode ter uma camada de água líquida em seu interior.',
+        perguntas: [
+          { p: 'Apesar de parecer totalmente inerte, o que dados sugerem sobre o interior de Calisto?', opts: ['Que é completamente sólida e sem água','Que pode ter uma camada de água líquida internamente','Que é oca por dentro','Que está pegando fogo'], correta: 1 },
+          { p: 'Isso significa que, entre as luas galileanas, a possível presença de água líquida:', opts: ['É exclusiva de Europa','Pode ser mais comum do que se imaginava, incluindo até Calisto','Não existe em nenhuma delas','Só ocorre em Io'], correta: 1 },
+          { p: 'O contraste entre a superfície "morta" de Calisto e um possível oceano interno mostra que:', opts: ['A aparência externa de um corpo sempre revela tudo sobre seu interior','A aparência externa nem sempre revela o que acontece no interior de um corpo celeste','Calisto não pode ter nada por dentro','Isso é impossível de verificar'], correta: 1 }
         ] }
     ],
     curiosidade: 'Calisto é tão antiga e estável que cientistas já a consideraram um possível local para uma futura base humana, por estar fora do cinturão de radiação intensa de Júpiter.',
@@ -793,14 +841,14 @@ const PLANETS = [
           exp: 'Calisto tem a superfície mais craterada já observada no Sistema Solar.' },
         { p: 'As crateras de Calisto vieram de:', opts: ['Vulcões internos','Bilhões de anos de impactos','Terremotos','Chuva ácida'], correta: 1,
           exp: 'As crateras se acumularam ao longo de bilhões de anos de impactos de asteroides e cometas.' },
-        { p: 'Calisto orbita qual planeta?', opts: ['Saturno','Júpiter','Urano','Marte'], correta: 1,
-          exp: 'Calisto é uma das quatro luas galileanas de Júpiter.' }
+        { p: 'Por que Calisto é considerada mais segura em termos de radiação que as outras luas galileanas?', opts: ['Por ter uma atmosfera espessa','Por orbitar mais distante de Júpiter','Por ser menor','Por ser mais quente'], correta: 1,
+          exp: 'A maior distância de Júpiter coloca Calisto fora do cinturão de radiação mais intenso.' }
       ],
       desafio: [
         { p: 'Por que Calisto tem bem menos atividade geológica que Io?', opts: ['Por ser menor que Io','Por orbitar mais distante de Júpiter, sofrendo menos aquecimento de maré','Por ser mais fria por natureza','Não há explicação'], correta: 1,
           exp: 'A distância maior de Júpiter reduz o aquecimento de maré, deixando Calisto geologicamente inativa.' },
-        { p: 'Uma superfície extremamente antiga e craterada, como a de Calisto, é útil para os cientistas porque:', opts: ['Não serve para nada','Preserva um registro da história antiga do Sistema Solar','Prova que Calisto é jovem','Mostra que há vida ali'], correta: 1,
-          exp: 'Superfícies antigas preservadas funcionam como um "arquivo" da história do Sistema Solar.' },
+        { p: 'O que a possível existência de água líquida no interior de Calisto, apesar de sua superfície inerte, ensina sobre estudar outros mundos?', opts: ['Que a aparência externa sempre conta toda a história','Que é preciso investigar além da superfície para conhecer o interior de um corpo celeste','Que Calisto não pode ter surpresas','Nada relevante'], correta: 1,
+          exp: 'A superfície "morta" de Calisto escondia a possibilidade de água interna, mostrando a importância de estudar além do que se vê de fora.' },
         { p: 'Comparando Io (muito ativa) e Calisto (praticamente "morta"), o principal fator que explica a diferença é:', opts: ['O tamanho das duas luas','A distância de cada uma em relação a Júpiter','A cor da superfície','Nenhum fator identificável'], correta: 1,
           exp: 'A distância a Júpiter determina o quanto cada lua sofre de aquecimento de maré.' }
       ]
@@ -826,6 +874,18 @@ const PLANETS = [
           { p: 'Por que cientistas comparam Titã a uma versão congelada da Terra primitiva?', opts: ['Porque tem oceanos de água quente','Por ter atmosfera rica em nitrogênio e ciclos climáticos parecidos, ainda que com líquidos diferentes','Porque já teve vida confirmada','Porque é do mesmo tamanho que a Terra'], correta: 1 },
           { p: 'Qual gás compõe a maior parte da atmosfera de Titã, assim como ocorre na Terra?', opts: ['Oxigênio','Nitrogênio','Hidrogênio puro','Ozônio'], correta: 1 },
           { p: 'Estudar Titã pode ajudar cientistas a entender melhor:', opts: ['Apenas a superfície do Sol','Processos atmosféricos e químicos que talvez tenham ocorrido na Terra antes da vida surgir','A velocidade de rotação de Marte','Nada relacionado à Terra'], correta: 1 }
+        ] },
+      { titulo: 'Maior que Mercúrio', texto: 'Titã é a segunda maior lua do Sistema Solar, atrás apenas de Ganimedes — e, assim como ela, é maior que o planeta Mercúrio.',
+        perguntas: [
+          { p: 'Titã é a segunda maior lua do Sistema Solar, atrás apenas de:', opts: ['Europa','Ganimedes','A Lua da Terra','Calisto'], correta: 1 },
+          { p: 'Assim como Ganimedes, Titã é maior que qual planeta?', opts: ['Júpiter','Mercúrio','Saturno','Netuno'], correta: 1 },
+          { p: 'O fato de duas luas do Sistema Solar (Ganimedes e Titã) serem maiores que um planeta reforça que:', opts: ['O tamanho não define sozinho se um corpo é planeta ou lua — a órbita também importa','Mercúrio não deveria ser um planeta','Todas as luas grandes viram planetas','Isso nunca acontece na prática'], correta: 0 }
+        ] },
+      { titulo: 'Chuva de metano', texto: 'Titã tem um ciclo climático completo, com nuvens, chuva de metano e até uma espécie de "neve" orgânica caindo lentamente por sua espessa atmosfera.',
+        perguntas: [
+          { p: 'O que cai das nuvens na atmosfera de Titã, no lugar de chuva de água?', opts: ['Chuva de ferro','Chuva de metano','Granizo de rocha','Nada, nunca chove em Titã'], correta: 1 },
+          { p: 'Titã tem, portanto, um ciclo climático que inclui:', opts: ['Apenas ventos secos, sem nuvens nem chuva','Nuvens, chuva de metano e até uma espécie de "neve" orgânica','Somente tempestades de areia','Nenhuma atividade atmosférica'], correta: 1 },
+          { p: 'Esse ciclo climático de Titã, mesmo usando metano em vez de água, é comparável em princípio a qual processo terrestre?', opts: ['O ciclo da água','A fotossíntese','A tectônica de placas','As marés oceânicas'], correta: 0 }
         ] }
     ],
     curiosidade: 'A sonda Huygens pousou em Titã em 2005 e fotografou pedregulhos de gelo arredondados por líquido — evidência de que rios de metano moldaram a paisagem, como a água faz na Terra.',
@@ -835,13 +895,13 @@ const PLANETS = [
           exp: 'Titã é a única lua com uma atmosfera densa e permanente.' },
         { p: 'Ao invés de água, o que forma os lagos de Titã?', opts: ['Lava','Metano e etano líquidos','Mercúrio líquido','Ácido sulfúrico'], correta: 1,
           exp: 'Os lagos e rios de Titã são formados por metano e etano líquidos.' },
-        { p: 'Titã é uma lua de qual planeta?', opts: ['Júpiter','Saturno','Urano','Netuno'], correta: 1,
-          exp: 'Titã é a maior lua de Saturno.' }
+        { p: 'Titã é a segunda maior lua do Sistema Solar, atrás apenas de:', opts: ['Europa','Ganimedes','A Lua da Terra','Io'], correta: 1,
+          exp: 'Ganimedes é a maior lua do Sistema Solar, e Titã vem logo em seguida.' }
       ],
       desafio: [
         { p: 'Por que a água não pode ser líquida na superfície de Titã?', opts: ['Porque não existe água em Titã','Porque as temperaturas são baixas demais, ao contrário do metano que permanece líquido nessas condições','Porque Titã é quente demais','Não há explicação'], correta: 1,
           exp: 'As temperaturas extremamente baixas de Titã mantêm a água congelada, mas permitem o metano líquido.' },
-        { p: 'A existência de lagos e um ciclo de líquidos evaporando e precipitando em Titã lembra, em princípio, qual processo da Terra?', opts: ['O ciclo da água','A tectônica de placas','As marés oceânicas','Nenhum processo terrestre'], correta: 0,
+        { p: 'O ciclo de nuvens e chuva de metano em Titã lembra, em princípio, qual processo da Terra?', opts: ['O ciclo da água','A tectônica de placas','As marés oceânicas','Nenhum processo terrestre'], correta: 0,
           exp: 'Titã tem um "ciclo do metano" que lembra, em princípio, o ciclo da água na Terra.' },
         { p: 'Por que Titã é comparada a uma "Terra primitiva congelada"?', opts: ['Porque tem oceanos de água quente como a Terra antiga','Por ter atmosfera rica em nitrogênio e processos climáticos parecidos, com líquidos diferentes','Porque já teve vida confirmada','Porque tem o mesmo tamanho da Terra'], correta: 1,
           exp: 'A atmosfera rica em nitrogênio e os ciclos climáticos de Titã lembram, em princípio, a Terra muito antiga.' }
@@ -868,6 +928,18 @@ const PLANETS = [
           { p: 'O que os gêiseres de Encélado têm a ver com os anéis de Saturno?', opts: ['Nada, são fenômenos sem relação','As partículas de gelo lançadas por eles formam o anel E de Saturno','Eles destroem os anéis de Saturno','Encélado fica fora do sistema de anéis'], correta: 1 },
           { p: 'O anel E de Saturno é composto principalmente por:', opts: ['Rochas grandes','Partículas finas de gelo vindas de Encélado','Poeira vermelha de Marte','Gás hidrogênio'], correta: 1 },
           { p: 'Esse vínculo entre Encélado e o anel E é um exemplo de como:', opts: ['Luas pequenas podem influenciar diretamente características visíveis de um planeta gigante','Luas nunca afetam seus planetas','Os anéis de Saturno não têm relação com nenhuma lua','Encélado é maior que Saturno'], correta: 0 }
+        ] },
+      { titulo: 'Um polo sul surpreendentemente quente', texto: 'Por incrível que pareça, a região do polo sul de Encélado é mais quente que o resto da superfície — exatamente onde ficam as fraturas que expelem os gêiseres.',
+        perguntas: [
+          { p: 'Qual região de Encélado é surpreendentemente mais quente que o resto da superfície?', opts: ['O equador','O polo norte','O polo sul','Não há variação de temperatura'], correta: 2 },
+          { p: 'Por que o polo sul de Encélado é mais quente?', opts: ['Por receber mais luz solar','Por ser onde ficam as fraturas ativas que expelem os gêiseres','Por estar mais perto de Saturno nessa região','Não há explicação'], correta: 1 },
+          { p: 'Esse calor extra no polo sul é mais uma evidência de que Encélado tem, ali, uma conexão direta com:', opts: ['O espaço vazio, sem relação com o interior','O oceano e a atividade geológica interna','A atmosfera de Saturno','Nada relevante'], correta: 1 }
+        ] },
+      { titulo: 'Ingredientes para vida detectados', texto: 'Análises dos gêiseres de Encélado já encontraram moléculas orgânicas complexas e hidrogênio molecular — compostos associados a processos que sustentam vida na Terra.',
+        perguntas: [
+          { p: 'O que foi detectado nas análises dos gêiseres de Encélado?', opts: ['Apenas vapor de água puro','Moléculas orgânicas complexas e hidrogênio molecular','Ouro e metais preciosos','Nada além de poeira'], correta: 1 },
+          { p: 'Por que a presença de hidrogênio molecular nos gêiseres chama atenção dos cientistas?', opts: ['Porque não tem nenhuma relação com vida','Porque está associado a processos que, na Terra, sustentam formas de vida no fundo do oceano','Porque prova que há vida em Encélado','Porque é um gás raro no universo'], correta: 1 },
+          { p: 'Essas descobertas reforçam Encélado como:', opts: ['Um mundo sem nenhum interesse científico','Um dos alvos mais promissores na busca por vida no Sistema Solar','Um lugar comprovadamente habitado','Uma lua idêntica à nossa Lua'], correta: 1 }
         ] }
     ],
     curiosidade: 'Apesar de ter apenas cerca de 500 km de diâmetro, Encélado é hoje um dos alvos mais cobiçados na busca por vida extraterrestre, graças aos seus gêiseres.',
@@ -877,20 +949,20 @@ const PLANETS = [
           exp: 'Encélado tem gêiseres de água e gelo saindo de rachaduras no polo sul.' },
         { p: 'O que alimenta esses jatos de Encélado?', opts: ['A luz solar','Um oceano líquido sob a superfície gelada','Vulcões de enxofre','Reações nucleares'], correta: 1,
           exp: 'Um oceano subterrâneo de água líquida alimenta os gêiseres de Encélado.' },
-        { p: 'Encélado orbita qual planeta?', opts: ['Júpiter','Saturno','Netuno','Urano'], correta: 1,
-          exp: 'Encélado é uma lua de Saturno.' }
+        { p: 'Qual região de Encélado é mais quente, de forma surpreendente?', opts: ['O equador','O polo norte','O polo sul, onde ficam os gêiseres','Não há variação'], correta: 2,
+          exp: 'O polo sul de Encélado é mais quente por causa das fraturas ativas que alimentam os gêiseres.' }
       ],
       desafio: [
         { p: 'A relação entre Encélado e o anel E de Saturno é que:', opts: ['Não existe relação nenhuma','As partículas de gelo dos gêiseres de Encélado alimentam o anel E','O anel E destrói Encélado','Encélado está fora do alcance dos anéis'], correta: 1,
           exp: 'O material ejetado pelos gêiseres de Encélado forma o tênue anel E de Saturno.' },
-        { p: 'Uma vantagem de estudar a vida em Encélado (comparado a Europa) é que:', opts: ['Os gêiseres trazem amostras do oceano interno diretamente ao espaço, facilitando a coleta','Encélado não tem oceano nenhum','Encélado é mais quente','Não há vantagem nenhuma'], correta: 0,
-          exp: 'Os gêiseres de Encélado permitem coletar material do oceano interno sem precisar perfurar o gelo.' },
+        { p: 'Por que a detecção de hidrogênio molecular nos gêiseres de Encélado é tão significativa?', opts: ['Porque não significa nada de especial','Porque está associado a processos que sustentam vida em ambientes extremos na Terra','Porque é a primeira vez que hidrogênio é visto no espaço','Porque prova vida confirmada'], correta: 1,
+          exp: 'O hidrogênio molecular está ligado a processos que, na Terra, alimentam ecossistemas no fundo do oceano.' },
         { p: 'A atividade contínua dos gêiseres de Encélado é evidência de que, no presente, esse satélite tem:', opts: ['Nenhuma atividade interna','Atividade geológica ativa acontecendo agora','Apenas rocha fria e sólida','Vida confirmada'], correta: 1,
           exp: 'Gêiseres ativos só existem se houver energia e atividade geológica em curso no interior de Encélado.' }
       ]
     }
   },
-  {
+{
     id: 'mercurio', nome: 'Mercúrio', ordem: 1,
     fatos: [
       { titulo: 'O mais próximo da fornalha', texto: 'Mercúrio é o planeta mais próximo do Sol, orbitando a apenas 57,9 milhões de km de distância — e também o menor dos oito, com 4.879 km de diâmetro.',
