@@ -1359,15 +1359,15 @@ const PLANET_TEXTURES = {
 };
 
 const PLANET3D = {
-  terra:    { r: 65,     angle: 0,   size: 1.6,   color: 0x3f7fd9, emissive: 0x0a1a33 },
+  terra:    { r: 65,     angle: 15,  size: 1.6,   color: 0x3f7fd9, emissive: 0x0a1a33 },
   lua:      { r: 0,      angle: 0,   size: 0.44,  color: 0xaaaaaa, emissive: 0x1a1a1a },
-  mercurio: { r: 25.2,   angle: 45,  size: 0.61,  color: 0xb8a582, emissive: 0x1a1510 },
-  venus:    { r: 47.0,   angle: 90,  size: 1.52,  color: 0xe8c99b, emissive: 0x2a2013 },
-  marte:    { r: 99.1,   angle: 135, size: 0.85,  color: 0xe0705a, emissive: 0x2a0f08 },
-  jupiter:  { r: 338.2,  angle: 180, size: 17.55, color: 0xd8b48a, emissive: 0x261c10 },
-  saturno:  { r: 619.9,  angle: 225, size: 14.63, color: 0xe0c9a0, emissive: 0x2a2313 },
-  urano:    { r: 1247.4, angle: 270, size: 6.37,  color: 0xace3e0, emissive: 0x102a28 },
-  netuno:   { r: 1954.5, angle: 315, size: 6.18,  color: 0x3f5fd9, emissive: 0x0a1233 },
+  mercurio: { r: 25.2,   angle: 210, size: 0.61,  color: 0xb8a582, emissive: 0x1a1510 },
+  venus:    { r: 47.0,   angle: 95,  size: 1.52,  color: 0xe8c99b, emissive: 0x2a2013 },
+  marte:    { r: 99.1,   angle: 290, size: 0.85,  color: 0xe0705a, emissive: 0x2a0f08 },
+  jupiter:  { r: 338.2,  angle: 40,  size: 17.55, color: 0xd8b48a, emissive: 0x261c10 },
+  saturno:  { r: 619.9,  angle: 160, size: 14.63, color: 0xe0c9a0, emissive: 0x2a2313 },
+  urano:    { r: 1247.4, angle: 305, size: 6.37,  color: 0xace3e0, emissive: 0x102a28 },
+  netuno:   { r: 1954.5, angle: 125, size: 6.18,  color: 0x3f5fd9, emissive: 0x0a1233 },
   io:        { r: 0, angle: 0, size: 0.46, color: 0xe8d36a, emissive: 0x2a2410 },
   europa:    { r: 0, angle: 0, size: 0.39, color: 0xd9c9b0, emissive: 0x2a2318 },
   ganimedes: { r: 0, angle: 0, size: 0.66, color: 0x9c8f7a, emissive: 0x1a1712 },
@@ -2069,11 +2069,17 @@ function initThree(){
     colors[si*3]=cr; colors[si*3+1]=cg; colors[si*3+2]=cb;
     si++;
   }
-  const starGeo = new THREE.BufferGeometry();
-  starGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
-  starGeo.setAttribute('color', new THREE.BufferAttribute(colors,3));
-  const starMat = new THREE.PointsMaterial({ size:3, vertexColors:true, sizeAttenuation:false, transparent:true, opacity:0.9 });
-  scene.add(new THREE.Points(starGeo, starMat));
+  const starGeoSphere = new THREE.IcosahedronGeometry(6, 0);
+  const starMatSphere = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const starMesh = new THREE.InstancedMesh(starGeoSphere, starMatSphere, totalStars);
+  const dummyStar = new THREE.Object3D();
+  for (let i=0;i<totalStars;i++){
+    dummyStar.position.set(positions[i*3], positions[i*3+1], positions[i*3+2]);
+    dummyStar.updateMatrix();
+    starMesh.setMatrixAt(i, dummyStar.matrix);
+    starMesh.setColorAt(i, new THREE.Color(colors[i*3], colors[i*3+1], colors[i*3+2]));
+  }
+  scene.add(starMesh);
 
 
   // planetas + anéis de órbita
