@@ -1334,15 +1334,15 @@ const PLANET_TEXTURES = {
 };
 
 const PLANET3D = {
-  terra:    { r: 18,     angle: 0,   size: 1.6,   color: 0x3f7fd9, emissive: 0x0a1a33 },
+  terra:    { r: 65,     angle: 0,   size: 1.6,   color: 0x3f7fd9, emissive: 0x0a1a33 },
   lua:      { r: 0,      angle: 0,   size: 0.44,  color: 0xaaaaaa, emissive: 0x1a1a1a },
-  mercurio: { r: 6.97,   angle: 45,  size: 0.61,  color: 0xb8a582, emissive: 0x1a1510 },
-  venus:    { r: 13.01,  angle: 90,  size: 1.52,  color: 0xe8c99b, emissive: 0x2a2013 },
-  marte:    { r: 27.43,  angle: 135, size: 0.85,  color: 0xe0705a, emissive: 0x2a0f08 },
-  jupiter:  { r: 93.65,  angle: 180, size: 17.55, color: 0xd8b48a, emissive: 0x261c10 },
-  saturno:  { r: 171.67, angle: 225, size: 14.63, color: 0xe0c9a0, emissive: 0x2a2313 },
-  urano:    { r: 345.44, angle: 270, size: 6.37,  color: 0xace3e0, emissive: 0x102a28 },
-  netuno:   { r: 541.24, angle: 315, size: 6.18,  color: 0x3f5fd9, emissive: 0x0a1233 },
+  mercurio: { r: 25.2,   angle: 45,  size: 0.61,  color: 0xb8a582, emissive: 0x1a1510 },
+  venus:    { r: 47.0,   angle: 90,  size: 1.52,  color: 0xe8c99b, emissive: 0x2a2013 },
+  marte:    { r: 99.1,   angle: 135, size: 0.85,  color: 0xe0705a, emissive: 0x2a0f08 },
+  jupiter:  { r: 338.2,  angle: 180, size: 17.55, color: 0xd8b48a, emissive: 0x261c10 },
+  saturno:  { r: 619.9,  angle: 225, size: 14.63, color: 0xe0c9a0, emissive: 0x2a2313 },
+  urano:    { r: 1247.4, angle: 270, size: 6.37,  color: 0xace3e0, emissive: 0x102a28 },
+  netuno:   { r: 1954.5, angle: 315, size: 6.18,  color: 0x3f5fd9, emissive: 0x0a1233 },
   io:        { r: 0, angle: 0, size: 0.46, color: 0xe8d36a, emissive: 0x2a2410 },
   europa:    { r: 0, angle: 0, size: 0.39, color: 0xd9c9b0, emissive: 0x2a2318 },
   ganimedes: { r: 0, angle: 0, size: 0.66, color: 0x9c8f7a, emissive: 0x1a1712 },
@@ -1945,8 +1945,8 @@ let steerInput = { left:false, right:false, up:false, down:false, boost:false };
 let mascotFlightTimer = 8;
 let departedId = 'terra';
 let flightGrace = 1.2;
-const SHIP_SPEED = 16;
-const SHIP_BOOST_SPEED = 38;
+const SHIP_SPEED = 58;
+const SHIP_BOOST_SPEED = 137;
 const TURN_RATE = 1.6;
 const PITCH_RATE = 1.1;
 const PITCH_LIMIT = 0.55;
@@ -1964,15 +1964,15 @@ function initThree(){
   camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 500);
 
   scene.add(new THREE.AmbientLight(0x40456e, 1.1));
-  const sunLight = new THREE.PointLight(0xfff2d0, 2.4, 900);
+  const sunLight = new THREE.PointLight(0xfff2d0, 2.4, 3000);
   scene.add(sunLight);
 
-  const sunGeo = new THREE.SphereGeometry(6.0, 32, 32);
+  const sunGeo = new THREE.SphereGeometry(20, 32, 32);
   const sunMat = new THREE.MeshBasicMaterial({ color: 0xffd27a });
   sunMesh = new THREE.Mesh(sunGeo, sunMat);
   scene.add(sunMesh);
 
-  const haloGeo = new THREE.SphereGeometry(6.0*1.7, 24, 24);
+  const haloGeo = new THREE.SphereGeometry(20*1.7, 24, 24);
   const haloMat = new THREE.MeshBasicMaterial({ color:0xffb454, transparent:true, opacity:0.16, blending:THREE.AdditiveBlending, depthWrite:false });
   sunMesh.add(new THREE.Mesh(haloGeo, haloMat));
 
@@ -1980,7 +1980,7 @@ function initThree(){
   const starCount = 1400;
   const positions = new Float32Array(starCount*3);
   for (let i=0;i<starCount;i++){
-    const r = 800 + Math.random()*500;
+    const r = 2700 + Math.random()*700;
     const theta = Math.random()*Math.PI*2;
     const phi = Math.acos((Math.random()*2)-1);
     positions[i*3]   = r*Math.sin(phi)*Math.cos(theta);
@@ -2056,7 +2056,7 @@ function initThree(){
   // Nuvem de Oort: uma casca ESFÉRICA de gelo muito além de Netuno — não é o mesmo lugar do cinturão de asteroides!
   const oortGeo = new THREE.IcosahedronGeometry(1, 0);
   const oortMat = new THREE.MeshStandardMaterial({ color: 0xdceef5, roughness: 0.85, flatShading: true, emissive: 0x0a1520, emissiveIntensity: 0.3 });
-  const oortInner = 600, oortOuter = 700;
+  const oortInner = 2200, oortOuter = 2500;
   for (let i = 0; i < 90; i++){
     const rad = oortInner + Math.random()*(oortOuter-oortInner);
     const theta = Math.random()*Math.PI*2;
