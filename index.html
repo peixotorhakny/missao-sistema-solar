@@ -166,6 +166,31 @@
   .boost-btn svg { width: 68%; height: auto; }
   .boost-btn:active { background: rgba(255,180,84,0.32); }
 
+  .radar {
+    position: fixed; top: 100px; right: 14px; width: 116px; height: 116px;
+    border-radius: 50%; background: rgba(5,6,15,0.65); border: 1px solid var(--line);
+    z-index: 7; overflow: hidden; pointer-events: none;
+  }
+  .radar::before {
+    content: ''; position: absolute; inset: 12px; border: 1px solid rgba(255,255,255,0.08); border-radius: 50%;
+  }
+  .radar::after {
+    content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.06);
+  }
+  .radar-ship {
+    position: absolute; left: 50%; top: 50%; width: 0; height: 0;
+    border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 8px solid var(--accent);
+    transform: translate(-50%, -60%);
+  }
+  .radar-blip {
+    position: absolute; left: 50%; top: 50%; width: 6px; height: 6px;
+    border-radius: 50%; margin-left: -3px; margin-top: -3px; transition: transform 0.1s linear;
+  }
+  .radar-sun {
+    width: 9px; height: 9px; margin-left: -4.5px; margin-top: -4.5px;
+    background: #ffd27a !important; box-shadow: 0 0 5px #ffd27a;
+  }
+
   #damage-flash {
     position: fixed; inset: 0; pointer-events: none; z-index: 50;
     background: radial-gradient(circle, transparent 40%, rgba(255,60,60,0.5) 100%);
@@ -1713,6 +1738,32 @@ function flashDamage(){
   setTimeout(() => { el.classList.remove('show'); }, 180);
 }
 
+function updateRadar(){
+  const radar = document.getElementById('radar');
+  if (!radar || !shipGroup) return;
+  const RAIO_PX = 50;
+  const K = 250;
+  const h = shipHeading;
+  const shipPos = shipGroup.position;
+
+  const corpos = [{ id: 'sol', pos: new THREE.Vector3(0,0,0) }]
+    .concat(cadeiaPrincipal().map(p => ({ id: p.id, pos: planetWorldPos(p.id) })));
+
+  corpos.forEach(corpo => {
+    const el = document.getElementById('radarBlip_' + corpo.id);
+    if (!el) return;
+    const dx = corpo.pos.x - shipPos.x;
+    const dz = corpo.pos.z - shipPos.z;
+    const dist = Math.sqrt(dx*dx + dz*dz);
+    const fwd = dx*Math.sin(h) + dz*Math.cos(h);
+    const right = dx*Math.cos(h) - dz*Math.sin(h);
+    const fator = dist > 0.001 ? (RAIO_PX * (dist/(dist+K))) / dist : 0;
+    const px = right * fator;
+    const py = -fwd * fator;
+    el.style.transform = `translate(${px}px, ${py}px)`;
+  });
+}
+
 /* ================= RANKING GLOBAL (via API própria em /api/ranking, que fala com o Neon) ================= */
 function getPlayerId(){
   let id = localStorage.getItem('missao-player-id');
@@ -2240,6 +2291,7 @@ function animateThree(){
     const speed = steerInput.boost ? SHIP_BOOST_SPEED : SHIP_SPEED;
     shipGroup.position.addScaledVector(forward, speed*dt);
     shipGroup.lookAt(shipGroup.position.clone().add(forward));
+    updateRadar();
 
     if (shipInvuln <= 0) {
       for (let i = 0; i < asteroids.length; i++) {
@@ -2392,6 +2444,11 @@ function renderMapa(){
         </div>
       </div>
       <div class="drag-hint">🎮 Pilote e aproxime-se de um planeta para chegar</div>
+      <div class="radar" id="radar">
+        <div class="radar-ship"></div>
+        <div class="radar-blip radar-sun" id="radarBlip_sol"></div>
+        ${mainChain.map(p => `<div class="radar-blip" id="radarBlip_${p.id}" style="background:#${PLANET3D[p.id].color.toString(16).padStart(6,'0')};"></div>`).join('')}
+      </div>
     </div>
     <div class="flight-controls">
       <div class="dpad">
