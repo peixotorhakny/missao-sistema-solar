@@ -2012,7 +2012,7 @@ function initThree(){
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x05060f);
 
-  camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 500);
+  camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 4000);
 
   scene.add(new THREE.AmbientLight(0x40456e, 1.1));
   const sunLight = new THREE.PointLight(0xfff2d0, 2.4, 3000);
@@ -2027,21 +2027,54 @@ function initThree(){
   const haloMat = new THREE.MeshBasicMaterial({ color:0xffb454, transparent:true, opacity:0.16, blending:THREE.AdditiveBlending, depthWrite:false });
   sunMesh.add(new THREE.Mesh(haloGeo, haloMat));
 
-  // estrelas
-  const starCount = 1400;
-  const positions = new Float32Array(starCount*3);
-  for (let i=0;i<starCount;i++){
+  // estrelas: um fundo espalhado + uma faixa densa e colorida lembrando a Via Láctea
+  function estrelaCor(){
+    const r = Math.random();
+    if (r < 0.55) return [1, 1, 1];
+    if (r < 0.78) return [0.75, 0.85, 1];
+    if (r < 0.93) return [1, 0.92, 0.75];
+    return [1, 0.78, 0.65];
+  }
+  const starCountBg = 6000, starCountBand = 8000;
+  const totalStars = starCountBg + starCountBand;
+  const positions = new Float32Array(totalStars*3);
+  const colors = new Float32Array(totalStars*3);
+  let si = 0;
+  for (let i=0;i<starCountBg;i++){
     const r = 2700 + Math.random()*700;
     const theta = Math.random()*Math.PI*2;
     const phi = Math.acos((Math.random()*2)-1);
-    positions[i*3]   = r*Math.sin(phi)*Math.cos(theta);
-    positions[i*3+1] = r*Math.cos(phi);
-    positions[i*3+2] = r*Math.sin(phi)*Math.sin(theta);
+    positions[si*3]   = r*Math.sin(phi)*Math.cos(theta);
+    positions[si*3+1] = r*Math.cos(phi);
+    positions[si*3+2] = r*Math.sin(phi)*Math.sin(theta);
+    const [cr,cg,cb] = estrelaCor();
+    colors[si*3]=cr; colors[si*3+1]=cg; colors[si*3+2]=cb;
+    si++;
+  }
+  const tiltX = 0.6, tiltZ = 0.3;
+  for (let i=0;i<starCountBand;i++){
+    const r = 2700 + Math.random()*700;
+    const ang = Math.random()*Math.PI*2;
+    const espalhamento = ((Math.random()+Math.random()+Math.random()-1.5)/1.5) * 0.35;
+    const phiBase = Math.PI/2 + espalhamento;
+    const x = r*Math.sin(phiBase)*Math.cos(ang);
+    const y = r*Math.cos(phiBase);
+    const z = r*Math.sin(phiBase)*Math.sin(ang);
+    const y2 = y*Math.cos(tiltX) - z*Math.sin(tiltX);
+    const z2 = y*Math.sin(tiltX) + z*Math.cos(tiltX);
+    const x3 = x*Math.cos(tiltZ) - y2*Math.sin(tiltZ);
+    const y3 = x*Math.sin(tiltZ) + y2*Math.cos(tiltZ);
+    positions[si*3]=x3; positions[si*3+1]=y3; positions[si*3+2]=z2;
+    const [cr,cg,cb] = estrelaCor();
+    colors[si*3]=cr; colors[si*3+1]=cg; colors[si*3+2]=cb;
+    si++;
   }
   const starGeo = new THREE.BufferGeometry();
   starGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
-  const starMat = new THREE.PointsMaterial({ color:0xffffff, size:0.6, sizeAttenuation:true });
+  starGeo.setAttribute('color', new THREE.BufferAttribute(colors,3));
+  const starMat = new THREE.PointsMaterial({ size:3, vertexColors:true, sizeAttenuation:false, transparent:true, opacity:0.9 });
   scene.add(new THREE.Points(starGeo, starMat));
+
 
   // planetas + anéis de órbita
   const textureLoader = new THREE.TextureLoader();
