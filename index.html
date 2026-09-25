@@ -190,6 +190,11 @@
     width: 9px; height: 9px; margin-left: -4.5px; margin-top: -4.5px;
     background: #ffd27a !important; box-shadow: 0 0 5px #ffd27a;
   }
+  .radar-anomalia {
+    background: #ff6ee3 !important; box-shadow: 0 0 6px #ff6ee3;
+    animation: radarPulse 1.2s ease-in-out infinite;
+  }
+  @keyframes radarPulse { 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
 
   #damage-flash {
     position: fixed; inset: 0; pointer-events: none; z-index: 50;
@@ -1747,7 +1752,9 @@ function updateRadar(){
   const shipPos = shipGroup.position;
 
   const corpos = [{ id: 'sol', pos: new THREE.Vector3(0,0,0) }]
-    .concat(cadeiaPrincipal().map(p => ({ id: p.id, pos: planetWorldPos(p.id) })));
+    .concat(cadeiaPrincipal().map(p => ({ id: p.id, pos: planetWorldPos(p.id) })))
+    .concat(ANOMALIAS.filter(a => anomaliaDesbloqueada(a) && !anomaliaEncontrada(a.id) && anomalyMeshes[a.id])
+      .map(a => ({ id: 'anom_' + a.id, pos: anomalyMeshes[a.id].position })));
 
   corpos.forEach(corpo => {
     const el = document.getElementById('radarBlip_' + corpo.id);
@@ -1863,6 +1870,29 @@ function renderRanking(){
   };
 }
 
+function renderAnomalia(){
+  const a = ANOMALIAS.find(x => x.id === tela.anomaliaId);
+  const novas = tela.novasConquistas || [];
+  app.innerHTML = `
+    <div class="screen">
+      <div class="result-card">
+        <div class="result-emoji">${a.icone}</div>
+        <div class="result-title">SINAL DECODIFICADO</div>
+        <h2 style="margin:6px 0 4px;">${a.nome}</h2>
+        <div class="result-knowledge">${a.texto}</div>
+        <div class="points-tag" style="display:block;margin:12px 0;">⭐ +${a.pontos} pontos</div>
+        ${novas.map(c => `<div class="achv-unlocked">${c.icon} <b>Conquista desbloqueada:</b> ${c.nome}</div>`).join('')}
+        <button class="btn-primary" id="btnContinuarAnomalia" style="margin-top:10px;">Continuar explorando</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('btnContinuarAnomalia').onclick = () => {
+    camMode = 'flight';
+    tela = { nome: 'mapa' };
+    render();
+  };
+}
+
 function saucerIconSVG(){
   return `<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -1929,7 +1959,9 @@ const CONQUISTAS = [
   { id: 'comandante', nome: 'Comandante do Sistema Solar', desc: 'Superou o Desafio Final, reunindo tudo o que aprendeu em toda a jornada.', icon: '👑',
     check: () => !!state.desafioFinalCompleto },
   { id: 'luas', nome: 'Colecionador de Luas', desc: 'Explorou a Lua da Terra e as luas de Júpiter e Saturno: Io, Europa, Ganimedes, Calisto, Titã e Encélado.', icon: '🌙',
-    check: () => ['lua','io','europa','ganimedes','calisto','tita','encelado'].every(planetaCompleto) }
+    check: () => ['lua','io','europa','ganimedes','calisto','tita','encelado'].every(planetaCompleto) },
+  { id: 'sinais', nome: 'Caçador de Sinais', desc: 'Encontrou todos os sinais e destroços de sondas espalhados pelo Sistema Solar.', icon: '📡',
+    check: () => ANOMALIAS.every(a => anomaliaEncontrada(a.id)) }
 ];
 
 const SINAL_MARCOS = [
@@ -1938,6 +1970,35 @@ const SINAL_MARCOS = [
   { after: 'jupiter', texto: '📡 Próximo a Júpiter, o sinal quase forma uma mensagem completa. Falta pouco.' },
   { after: 'netuno', texto: '📡 Nas bordas do Sistema Solar, o sinal finalmente se revela: uma sequência que se repete — 1, 1, 2, 3, 5, 8... a mesma matemática da espiral das galáxias. Alguém, em algum lugar, também descobriu esse padrão. Sua jornada por aqui está quase completa: um último desafio te aguarda no HUD do mapa.' }
 ];
+
+const ANOMALIAS = [
+  { id: 'sputnik', nome: 'Eco do Sputnik', icone: '📡', after: null, r: 40, angle: 80,
+    texto: 'Você capta um sinal de rádio simples e repetitivo — um "bip" constante. É um eco antigo do Sputnik 1, o primeiro satélite artificial da história, lançado pela União Soviética em 1957. Seu sinal de rádio, captado por estações amadoras ao redor do mundo, marcou o início da Era Espacial.',
+    pontos: 60 },
+  { id: 'pathfinder', nome: 'Ecos de Marte', icone: '🔴', after: 'terra', r: 130, angle: 200,
+    texto: 'Entre destroços flutuantes, você reconhece peças de um airbag — parte do pouso da sonda Mars Pathfinder, em 1997. Sua pequena rover, a Sojourner, foi o primeiro veículo com rodas a explorar a superfície marciana, abrindo caminho para todas as futuras missões em Marte.',
+    pontos: 90 },
+  { id: 'dawn', nome: 'Rastro no Cinturão', icone: '☄️', after: 'marte', r: 220, angle: 20,
+    texto: 'Um brilho metálico entre os asteroides revela um fragmento da sonda Dawn — a primeira a orbitar dois corpos diferentes do Sistema Solar: o asteroide Vesta e o planeta-anão Ceres, entre 2011 e 2018.',
+    pontos: 110 },
+  { id: 'cassini', nome: 'Últimos Sinais de Cassini', icone: '💫', after: 'jupiter', r: 650, angle: 260,
+    texto: 'Um pulso de dados fraco, quase apagado. É um dos últimos sinais da sonda Cassini, que orbitou Saturno por 13 anos e, em 2017, mergulhou de propósito na atmosfera do planeta — o "Grande Final" da missão — para nunca contaminar suas luas com micro-organismos vindos da Terra.',
+    pontos: 140 },
+  { id: 'voyager2', nome: 'A Passagem da Voyager 2', icone: '🌌', after: 'todos', r: 2050, angle: 30,
+    texto: 'Uma pequena espaçonave dourada segue seu caminho silencioso. É a Voyager 2, a única sonda que já visitou Netuno, em 1989. Décadas depois, ela e sua gêmea Voyager 1 continuam viajando — hoje, ambas já cruzaram para o espaço interestelar.',
+    pontos: 180 },
+  { id: 'voyager1', nome: 'O Disco de Ouro', icone: '💿', after: 'comandante', r: 2400, angle: 300,
+    texto: 'No silêncio profundo além de Netuno, você encontra a Voyager 1 — o objeto feito pelo ser humano mais distante da Terra. A bordo, um disco de ouro carrega sons, imagens e saudações da humanidade, para quem quer que o encontre um dia, daqui a bilhões de anos.',
+    pontos: 220 }
+];
+
+function anomaliaDesbloqueada(a){
+  if (!a.after) return true;
+  if (a.after === 'comandante') return !!state.desafioFinalCompleto;
+  if (a.after === 'todos') return cadeiaPrincipal().every(p => planetaCompleto(p.id));
+  return planetaCompleto(a.after);
+}
+function anomaliaEncontrada(id){ return (state.anomaliasEncontradas || []).includes(id); }
 
 function verificarSinal(idCompletado){
   const marco = SINAL_MARCOS.find(s => s.after === idCompletado);
@@ -1965,6 +2026,7 @@ let scene, camera, renderer, clock3D;
 let planetMeshes = {}, sunMesh, shipGroup, shipFlames = [];
 let planetOrbitAngle = {}, planetOrbitSpeed = {};
 let asteroids = [];
+let anomalyMeshes = {};
 let shipInvuln = 0;
 let camMode = 'flight'; // flight | idle-focus | transit
 let idleAngle = 0;
@@ -2162,6 +2224,18 @@ function initThree(){
     asteroids.push(rock);
   }
 
+  // marcadores das anomalias/sinais espaciais (ficam invisíveis até serem desbloqueados)
+  const anomalyGeo = new THREE.OctahedronGeometry(3, 0);
+  ANOMALIAS.forEach(a => {
+    const mat = new THREE.MeshBasicMaterial({ color: 0xff6ee3, transparent: true, opacity: 0.85 });
+    const mesh = new THREE.Mesh(anomalyGeo, mat);
+    const rad = a.angle * Math.PI/180;
+    mesh.position.set(Math.cos(rad)*a.r, 0, Math.sin(rad)*a.r);
+    mesh.visible = false;
+    scene.add(mesh);
+    anomalyMeshes[a.id] = mesh;
+  });
+
   shipGroup = buildShip();
   const shipLight = new THREE.PointLight(0xdfe8ff, 1.6, 12);
   shipLight.position.set(0, 1.5, 2);
@@ -2300,6 +2374,16 @@ function animateThree(){
     shipFlames[0].scale.set(pulse, pulse, 1);
   }
   asteroids.forEach(a => { a.rotation.x += dt*a.userData.spin; a.rotation.y += dt*a.userData.spin*0.7; });
+  const pulso = 1 + Math.sin(performance.now()*0.004)*0.25;
+  ANOMALIAS.forEach(a => {
+    const mesh = anomalyMeshes[a.id];
+    if (!mesh) return;
+    mesh.visible = anomaliaDesbloqueada(a) && !anomaliaEncontrada(a.id);
+    if (mesh.visible) {
+      mesh.rotation.x += dt*0.6; mesh.rotation.y += dt*0.4;
+      mesh.scale.setScalar(pulso);
+    }
+  });
   if (shipInvuln > 0) shipInvuln -= dt;
 
   if (engineGain) {
@@ -2369,7 +2453,26 @@ function animateThree(){
         if (distAtual < PLANET3D[id].size + 2.2) chegadaId = id;
       });
     }
-    if (chegadaId) {
+    let anomaliaAlvo = null;
+    ANOMALIAS.forEach(a => {
+      if (!anomaliaDesbloqueada(a) || anomaliaEncontrada(a.id)) return;
+      const mesh = anomalyMeshes[a.id];
+      if (!mesh) return;
+      if (shipGroup.position.distanceTo(mesh.position) < 6) anomaliaAlvo = a;
+    });
+
+    if (anomaliaAlvo) {
+      const antesConquistas = conquistasDesbloqueadas();
+      state.anomaliasEncontradas = state.anomaliasEncontradas || [];
+      state.anomaliasEncontradas.push(anomaliaAlvo.id);
+      state.totalPontos = (state.totalPontos || 0) + anomaliaAlvo.pontos;
+      salvarEstado();
+      const depoisConquistas = conquistasDesbloqueadas();
+      const novasConquistas = depoisConquistas.filter(id => !antesConquistas.includes(id)).map(id => CONQUISTAS.find(c => c.id === id));
+      playAchievement();
+      tela = { nome: 'anomalia', anomaliaId: anomaliaAlvo.id, novasConquistas };
+      render();
+    } else if (chegadaId) {
       playArrival();
       mascotSay(`👽 Chegamos em ${planetaPorId(chegadaId).nome}!`, 3500);
       camMode = 'idle-focus';
@@ -2445,6 +2548,7 @@ function render(){
   if (tela.nome === 'resultado') return renderResultado();
   if (tela.nome === 'conquistas') return renderConquistas();
   if (tela.nome === 'ranking') return renderRanking();
+  if (tela.nome === 'anomalia') return renderAnomalia();
 }
 
 function renderInicio(){
@@ -2487,6 +2591,7 @@ function renderMapa(){
         <div class="radar-ship"></div>
         <div class="radar-blip radar-sun" id="radarBlip_sol"></div>
         ${mainChain.map(p => `<div class="radar-blip" id="radarBlip_${p.id}" style="background:#${PLANET3D[p.id].color.toString(16).padStart(6,'0')};"></div>`).join('')}
+        ${ANOMALIAS.filter(a => anomaliaDesbloqueada(a) && !anomaliaEncontrada(a.id)).map(a => `<div class="radar-blip radar-anomalia" id="radarBlip_anom_${a.id}"></div>`).join('')}
       </div>
     </div>
     <div class="flight-controls">
@@ -2847,6 +2952,7 @@ function finalizarQuiz(){
   const passou = acertos >= Math.ceil(total * 0.5);
   state.totalPontos = (state.totalPontos || 0) + pontos;
   const antes = conquistasDesbloqueadas();
+  const anomaliasAntes = ANOMALIAS.filter(a => anomaliaDesbloqueada(a)).map(a => a.id);
   let sinal = null;
   if (isFinal) {
     if (passou) state.desafioFinalCompleto = true;
@@ -2855,6 +2961,10 @@ function finalizarQuiz(){
     if (passou) state.progresso[p.id][tela.nivel] = true;
     salvarEstado();
     if (passou && planetaCompleto(p.id)) sinal = verificarSinal(p.id);
+  }
+  const anomaliasDepois = ANOMALIAS.filter(a => anomaliaDesbloqueada(a)).map(a => a.id);
+  if (anomaliasDepois.some(id => !anomaliasAntes.includes(id))) {
+    mascotSay('👽 Novo sinal detectado no radar! Vale a pena investigar...', 5000);
   }
   const depois = conquistasDesbloqueadas();
   const novasConquistas = depois.filter(id => !antes.includes(id)).map(id => CONQUISTAS.find(c => c.id === id));
